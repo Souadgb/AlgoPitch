@@ -42,7 +42,8 @@ class PredictionSerializer(serializers.ModelSerializer):
 
     def get_ticker(self, obj):
         t = obj.ticker
-        return {'symbol': t.symbol, 'name': t.name, 'currency': t.currency, 'last_price': t.last_price}
+        last_price = None if t.last_price is None else f'{t.last_price:f}'
+        return {'symbol': t.symbol, 'name': t.name, 'currency': t.currency, 'last_price': last_price}
 
     def get_remaining_change_pct(self, obj):
         """Potentiel restant entre le cours actuel et la cible (prédictions en cours uniquement)."""
